@@ -13,16 +13,24 @@ class Board:
 		self.squares = [Square(Turn.SETUP, Mark.SPACE) for i in range(Board.X * Board.Y)]
 
 	def update(self, x, y):
-		self.squares[x + y * 3] = Square(Turn.getValue(), self.createMarkValue())
+		self.squares[self.convert(x = x, y = y)] = Square(Turn.getValue(), self.createMarkValue())
 		Turn.next()
 
 	def createMarkValue(self):
 		return Mark.CROSS if Turn.isEven() else Mark.CERCLE
 
+	def convert(self, x = None, y = None, num = None):
+		if num is None:
+			return x + y * Board.X
+
+		return (num % Board.X, num / Board.Y)
+
+	def _output(self, square, i):
+		square.output()
+		if i % Board.X == Board.X - 1:
+			print ''
+
 	def output(self):
 		print ''
-		for y in range(Board.Y):
-			for x in range(Board.X):
-				self.squares[x + y * 3].output()
-			print ''
+		[self._output(square, index) for index, square in enumerate(self.squares)]
 		print ''
