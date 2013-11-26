@@ -8,5 +8,8 @@ class Square:
 		self.turn = turn
 		self.mark = Mark.createMark(value)
 
+	def __eq__(self, value):
+		return self.mark == value
+
 	def output(self):
 		self.mark.output()

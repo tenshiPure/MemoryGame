@@ -10,9 +10,12 @@ class Board:
 	Y = 3
 
 	def __init__(self):
-		self.squares = [Square(Turn.SETUP, Mark.SPACE) for i in range(Board.X * Board.Y)]
+		self.squares = [Square(Turn.SETUP, Mark.BLANK) for i in range(Board.X * Board.Y)]
 
 	def update(self, x, y):
+		if not self.isBlank(x, y):
+			return
+
 		self.squares[self.convert(x = x, y = y)] = Square(Turn.getValue(), self.createMarkValue())
 		Turn.next()
 
@@ -29,6 +32,9 @@ class Board:
 		square.output()
 		if i % Board.X == Board.X - 1:
 			print ''
+
+	def isBlank(self, x, y):
+		return self.squares[self.convert(x = x, y = y)] == Mark.BLANK
 
 	def output(self):
 		print ''

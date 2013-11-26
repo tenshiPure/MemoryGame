@@ -2,7 +2,7 @@
 
 class Mark:
 
-	SPACE  = 0
+	BLANK  = 0
 	CERCLE = 1
 	CROSS  = 2
 
@@ -12,7 +12,7 @@ class Mark:
 
 	@staticmethod
 	def createMark(value):
-		if value == Mark.SPACE:
+		if value == Mark.BLANK:
 			return Mark(value, '-')
 
 		if value == Mark.CERCLE:
@@ -20,6 +20,9 @@ class Mark:
 
 		if value == Mark.CROSS:
 			return Mark(value, 'x')
+
+	def __eq__(self, value):
+		return self.value == value
 
 	def output(self):
 		print self.display,
