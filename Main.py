@@ -4,9 +4,12 @@ from Board import Board
 
 board = Board()
 
-while True:
+print 'start game'
+
+while board.play():
 	x = input('x : ')
 	y = input('y : ')
 
 	board.update(x, y)
-	board.output()
+
+print 'end game'

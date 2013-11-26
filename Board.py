@@ -28,7 +28,7 @@ class Board:
 
 		return (num % Board.X, num / Board.Y)
 
-	def _output(self, square, i):
+	def output(self, square, i):
 		square.output()
 		if i % Board.X == Board.X - 1:
 			print ''
@@ -36,7 +36,29 @@ class Board:
 	def isBlank(self, x, y):
 		return self.squares[self.convert(x = x, y = y)] == Mark.BLANK
 
-	def output(self):
+	def play(self):
 		print ''
-		[self._output(square, index) for index, square in enumerate(self.squares)]
+		[self.output(square, index) for index, square in enumerate(self.squares)]
 		print ''
+
+		return True if not self.isFinish() else False
+
+	def isFinish(self, nums = [0, 1, 2]):
+		results = []
+		results.append(self.check([0, 1, 2]))
+		results.append(self.check([3, 4, 5]))
+		results.append(self.check([6, 7, 8]))
+		results.append(self.check([0, 3, 6]))
+		results.append(self.check([1, 4, 7]))
+		results.append(self.check([2, 5, 8]))
+		results.append(self.check([0, 4, 8]))
+		results.append(self.check([2, 4, 6]))
+
+		return True in results
+
+	def check(self, nums):
+		square1 = self.squares[nums[0]].mark.value
+		square2 = self.squares[nums[1]].mark.value
+		square3 = self.squares[nums[2]].mark.value
+
+		return (square1 == square2 == square3) and square1 != Mark.BLANK
