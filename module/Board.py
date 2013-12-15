@@ -30,7 +30,11 @@ class Board:
 	def createResult(self):
 		result = {'marks' : [], 'judgement' : None}
 		result['marks'] = [square.mark.display for square in self.squares]
-		result['judgement'] = self.isFinish()
+
+		if self.isFinish():
+			result['judgement'] = 'o' if Turn.isEven() else 'x'
+		else:
+			result['judgement'] = None
 
 		return result
 

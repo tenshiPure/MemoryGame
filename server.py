@@ -2,11 +2,16 @@
 
 from tornado import websocket, web, ioloop
 import tornado
-import os.path
-
 import json
 
+import sys
+import os.path
+
+sys.path.append('module')
+from Board import Board
+
 clients = []
+board = Board()
 
 class IndexHandler(tornado.web.RequestHandler):
 	def get(self):
@@ -26,10 +31,7 @@ class PlayHandler(tornado.web.RequestHandler):
 	def get(self, *args):
 		num = int(self.get_argument('num'))
 
-		result = {}
-		result['marks'] = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
-		result['marks'][num] = 'o'
-		result['judgement'] = None
+		result = board.update(num)
 
 		for client in clients:
 			client.write_message(json.dumps(result))
