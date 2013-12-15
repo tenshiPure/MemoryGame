@@ -21,5 +21,11 @@ class Mark:
 		if value == Mark.CROSS:
 			return Mark(value, 'x')
 
-	def __eq__(self, value):
-		return self.value == value
+	def isBlank(self):
+		return self.value == Mark.BLANK
+
+	def createDisplay(self):
+		return self.display
+
+	def isSameAll(self, mark2, mark3):
+		return self.value == mark2.value == mark3.value
