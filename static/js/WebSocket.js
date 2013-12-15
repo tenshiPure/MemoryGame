@@ -12,9 +12,10 @@ var Server = function() {
 		};
 
 		ws.onmessage = function(e) {
-			var json = JSON.parse(e.data);
-			for (var index in json) {
-				document.getElementById(index).value = json[index];
+			var marks = JSON.parse(e.data)['marks'];
+			var judgement = JSON.parse(e.data)['judgement'];
+			for (var index in marks) {
+				document.getElementById(index).value = marks[index];
 			}
 		};
 	};

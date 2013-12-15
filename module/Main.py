@@ -6,10 +6,9 @@ board = Board()
 
 print 'start game'
 
-while board.play():
-	x = input('x : ')
-	y = input('y : ')
+while not board.isFinish():
+	num = input('num : ')
 
-	board.update(x, y)
+	print board.update(num)
 
 print 'end game'

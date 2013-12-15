@@ -23,6 +23,3 @@ class Mark:
 
 	def __eq__(self, value):
 		return self.value == value
-
-	def output(self):
-		print self.display,

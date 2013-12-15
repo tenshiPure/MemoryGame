@@ -12,36 +12,27 @@ class Board:
 	def __init__(self):
 		self.squares = [Square(Turn.SETUP, Mark.BLANK) for i in range(Board.X * Board.Y)]
 
-	def update(self, x, y):
-		if not self.isBlank(x, y):
-			return
+	def update(self, num):
+		if not self.isBlank(num):
+			return self.createResult()
 
-		self.squares[self.convert(x = x, y = y)] = Square(Turn.getValue(), self.createMarkValue())
+		self.squares[num] = Square(Turn.getValue(), self.createMarkValue())
 		Turn.next()
+
+		return self.createResult()
 
 	def createMarkValue(self):
 		return Mark.CROSS if Turn.isEven() else Mark.CERCLE
 
-	def convert(self, x = None, y = None, num = None):
-		if num is None:
-			return x + y * Board.X
+	def isBlank(self, num):
+		return self.squares[num] == Mark.BLANK
 
-		return (num % Board.X, num / Board.Y)
+	def createResult(self):
+		result = {'marks' : [], 'judgement' : None}
+		result['marks'] = [square.mark.display for square in self.squares]
+		result['judgement'] = self.isFinish()
 
-	def output(self, square, i):
-		square.output()
-		if i % Board.X == Board.X - 1:
-			print ''
-
-	def isBlank(self, x, y):
-		return self.squares[self.convert(x = x, y = y)] == Mark.BLANK
-
-	def play(self):
-		print ''
-		[self.output(square, index) for index, square in enumerate(self.squares)]
-		print ''
-
-		return True if not self.isFinish() else False
+		return result
 
 	def isFinish(self):
 		petterns = [

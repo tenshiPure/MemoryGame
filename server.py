@@ -26,8 +26,10 @@ class PlayHandler(tornado.web.RequestHandler):
 	def get(self, *args):
 		num = int(self.get_argument('num'))
 
-		result = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
-		result[num] = 'o';
+		result = {}
+		result['marks'] = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
+		result['marks'][num] = 'o'
+		result['judgement'] = None
 
 		for client in clients:
 			client.write_message(json.dumps(result))
