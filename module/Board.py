@@ -11,6 +11,10 @@ class Board:
 
 	def update(self, num):
 		if self.isBlank(num):
+			for index, square in enumerate(self.squares):
+				if square.turn == Turn.getValue() - 6:
+					self.squares[index].mark = Mark.createMark(Mark.BLANK)
+
 			self.squares[num] = Square(Turn.getValue(), self.createMarkValue())
 			Turn.next()
 
