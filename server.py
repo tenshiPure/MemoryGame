@@ -4,6 +4,8 @@ from tornado import websocket, web, ioloop
 import tornado
 import os.path
 
+import json
+
 clients = []
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -22,11 +24,13 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 class PlayHandler(tornado.web.RequestHandler):
 	@tornado.web.asynchronous
 	def get(self, *args):
-		x = self.get_argument('x')
-		y = self.get_argument('y')
+		num = int(self.get_argument('num'))
+
+		result = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
+		result[num] = 'o';
 
 		for client in clients:
-			client.write_message('hoge')
+			client.write_message(json.dumps(result))
 
 		self.finish()
 

@@ -12,7 +12,10 @@ var Server = function() {
 		};
 
 		ws.onmessage = function(e) {
-			console.log(e);
+			var json = JSON.parse(e.data);
+			for (var index in json) {
+				document.getElementById(index).value = json[index];
+			}
 		};
 	};
 }
