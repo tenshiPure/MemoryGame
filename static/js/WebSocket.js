@@ -15,11 +15,11 @@ var Server = function() {
 			var marks = JSON.parse(e.data)['marks'];
 			var judgement = JSON.parse(e.data)['judgement'];
 			for (var index in marks) {
-				document.getElementById(index).value = marks[index];
+				document.getElementById(index).src = "static/image/" + marks[index] + ".png";
 			}
 
 			if (judgement) {
-				alert(judgement + ' win!!!');
+				alert(judgement + ' player win!!!');
 			}
 		};
 	};
