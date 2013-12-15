@@ -2,7 +2,7 @@
 
 class Turn:
 
-	SETUP = 0
+	DEFAULT = 0
 	VALUE = 1
 
 	@staticmethod
@@ -20,3 +20,7 @@ class Turn:
 	@staticmethod
 	def isEven():
 		return Turn.VALUE % 2 == 0
+
+	@staticmethod
+	def isTooOld(square):
+		return square.turn == Turn.getValue() - 6

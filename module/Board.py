@@ -7,24 +7,27 @@ from Mark import Mark
 class Board:
 
 	def __init__(self):
-		self.squares = [Square(Turn.SETUP, Mark.BLANK) for i in range(9)]
+		self.squares = [Square(Turn.DEFAULT, Mark.BLANK) for i in range(9)]
 
 	def update(self, num):
 		if self.isBlank(num):
-			for index, square in enumerate(self.squares):
-				if square.turn == Turn.getValue() - 6:
-					self.squares[index].mark = Mark.createMark(Mark.BLANK)
+			self.removeOld()
 
 			self.squares[num] = Square(Turn.getValue(), self.createMarkValue())
 			Turn.next()
 
 		return self.createResult()
 
-	def createMarkValue(self):
-		return Mark.CROSS if Turn.isEven() else Mark.CERCLE
-
 	def isBlank(self, num):
 		return self.squares[num].isBlank()
+
+	def removeOld(self):
+		for index, square in enumerate(self.squares):
+			if Turn.isTooOld(square):
+				self.squares[index] = Square(Turn.DEFAULT, Mark.BLANK)
+
+	def createMarkValue(self):
+		return Mark.CROSS if Turn.isEven() else Mark.CERCLE
 
 	def createResult(self):
 		result = {}
