@@ -43,18 +43,21 @@ class Board:
 
 		return True if not self.isFinish() else False
 
-	def isFinish(self, nums = [0, 1, 2]):
-		results = []
-		results.append(self.check([0, 1, 2]))
-		results.append(self.check([3, 4, 5]))
-		results.append(self.check([6, 7, 8]))
-		results.append(self.check([0, 3, 6]))
-		results.append(self.check([1, 4, 7]))
-		results.append(self.check([2, 5, 8]))
-		results.append(self.check([0, 4, 8]))
-		results.append(self.check([2, 4, 6]))
+	def isFinish(self):
+		petterns = [
+				(0, 1, 2),
+				(3, 4, 5),
+				(6, 7, 8),
+				(0, 3, 6),
+				(1, 4, 7),
+				(2, 5, 8),
+				(0, 4, 8),
+				(2, 4, 6)
+				]
 
-		return True in results
+		for pettern in petterns:
+			if self.check(pettern):
+				return True
 
 	def check(self, nums):
 		square1 = self.squares[nums[0]].mark.value
