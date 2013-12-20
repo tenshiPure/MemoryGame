@@ -26,6 +26,16 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 		if self in clients:
 			clients.remove(self)
 
+class InitHandler(tornado.web.RequestHandler):
+	@tornado.web.asynchronous
+	def get(self, *args):
+		result = board.init()
+
+		for client in clients:
+			client.write_message(json.dumps(result))
+
+		self.finish()
+
 class PlayHandler(tornado.web.RequestHandler):
 	@tornado.web.asynchronous
 	def get(self, *args):
@@ -42,6 +52,7 @@ if __name__ == '__main__':
 	handlers = [
 			(r'/', IndexHandler),
 			(r'/ws', SocketHandler),
+			(r'/init', InitHandler),
 			(r'/play', PlayHandler),
 			]
 
@@ -51,6 +62,6 @@ if __name__ == '__main__':
 
 	app = tornado.web.Application(handlers, **settings)
 
-	port = 8080
+	port = 4521
 	app.listen(port)
 	tornado.ioloop.IOLoop.instance().start()

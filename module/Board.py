@@ -7,7 +7,13 @@ from Mark import Mark
 class Board:
 
 	def __init__(self):
+		self.init()
+
+	def init(self):
 		self.squares = [Square(Turn.DEFAULT, Mark.BLANK) for i in range(9)]
+		Turn.initialize()
+
+		return self.createResult()
 
 	def update(self, num):
 		if self.isBlank(num):
