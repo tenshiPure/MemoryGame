@@ -1,6 +1,7 @@
 var Server = function() {
 	this.up = function() {
 		url = 'ws://127.0.0.1:4521/ws';
+        url = 'ws://133.208.21.190:5000/ws';
 		ws = new WebSocket(url);
 
 		ws.onopen = function() {
